@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Outlet } from "react-router-dom";
 import './App.css'
 
 function App() {
@@ -35,9 +36,9 @@ function App() {
                 <p className="link">Paoline.K</p>
                 <p>Collage</p>
             </div>
-            <div className="navbar_box navbar_right">
+            <div className="navbar_box navbar_logo">
                 {/* <img className="logo link" src="img/Group 1.svg" alt=""> */}
-                <p>Logo</p>
+                <p>PK</p>
             </div>
         </div>
     </nav>
@@ -49,6 +50,7 @@ function App() {
             </div>
         </div>
     </nav>
+      <Outlet />
     
     </>
   )
