@@ -1,19 +1,19 @@
 export function Navbar() {
-    
+
     window.onscroll = function() {
         if (window.pageYOffset > 40) {
-          document.querySelector(".nav").classList.add("active");
-          document.querySelector(".nav2").classList.add("active");
+          document.querySelector(".nav-top").classList.add("active");
+          document.querySelector(".nav-bottom").classList.add("active");
           
         } else {
-            document.querySelector(".nav").classList.remove("active");
-            document.querySelector(".nav2").classList.remove("active");
+            document.querySelector(".nav-top").classList.remove("active");
+            document.querySelector(".nav-bottom").classList.remove("active");
         }
     };
 
     return (
         <>
-            <nav className="nav">
+            <nav className="nav-top">
                 <div className="navbar">
                     <div className="navbar_box navbar_left">
                         <p className="link text-main">Paoline.K</p>
@@ -25,7 +25,7 @@ export function Navbar() {
                     </div>
                 </div>
             </nav>
-            <nav className="nav2">
+            <nav className="nav-bottom">
                 <div className="navbar">
                     <div className="navbar_box navbar_box2 navbar_left">
                         <p>content of an artist </p>

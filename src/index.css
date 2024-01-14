@@ -43,7 +43,13 @@ nav.active {
   background: rgba(11, 11, 10, 0.755);
   backdrop-filter: blur(30px) saturate(180%);
 }
-.nav2 {
+.nav-top.active {
+  border-bottom: solid 1px rgba(255, 255, 255, 0.08);
+}
+.nav-bottom.active {
+  border-top: solid 1px rgba(255, 255, 255, 0.08);
+}
+.nav-bottom {
   width: 100%;
   height: 95px;
   position: fixed;
@@ -53,9 +59,6 @@ nav.active {
   font-family: 'margareth';
   font-size: 35px;
   color: white;
-}
-.logo {
-  width: 40px;
 }
 .navbar {
   width: min(calc(100% - 40px), 1300px);
