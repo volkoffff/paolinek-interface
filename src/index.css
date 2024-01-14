@@ -22,8 +22,8 @@
 body {
   font-family: Helvetica, Sans-Serif;
   font-size: 20px;
-  height: 200vh;
   background-color: var(--main-background);
+  overflow-x: hidden;
   color: white;
   cursor: none;
 }
