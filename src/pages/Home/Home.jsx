@@ -1,4 +1,9 @@
+import { Contact } from "../../components/Home/Contact/Contact";
+
 export function Home() {
+
+
+
     return (
         <>
         <div className="title_intro_container">
@@ -43,6 +48,7 @@ export function Home() {
             <div ></div>
         </div>
     </div>
+        <Contact />
         </>
     )
 }
