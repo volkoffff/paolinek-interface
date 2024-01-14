@@ -12,6 +12,9 @@
   --main-text-gray: rgb(199, 199, 199);
   --main-background: #070503
 }
+.text-main {
+  color: var(--main-color);
+}
 .font {
   font-size: 20px;
   line-height: 30px;    
@@ -36,15 +39,20 @@ nav {
   z-index: 999;
 }
 nav.active {
-  height: 65px;
-  background: rgba(14, 14, 13, 0.755);
-  backdrop-filter: blur(15px) saturate(180%);
+  height: 70px;
+  background: rgba(11, 11, 10, 0.755);
+  backdrop-filter: blur(30px) saturate(180%);
 }
 .nav2 {
   width: 100%;
   height: 95px;
   position: fixed;
   bottom: 0;
+}
+.navbar_logo {
+  font-family: 'margareth';
+  font-size: 35px;
+  color: white;
 }
 .logo {
   width: 40px;
@@ -63,9 +71,6 @@ nav.active {
   flex-direction: column;
   justify-content: center;
 }
-.navbar_box p:nth-child(1) {
-  color: var(--main-color);
-}
 .navbar_box p:nth-child(2) {
   padding-left: 35px;
 }
@@ -77,7 +82,6 @@ nav.active {
   color: white;
 }
 .navbar_box2 p:nth-child(2) {
-  color: var(--main-color);
   padding: 0;
 }
 /* titre hero */

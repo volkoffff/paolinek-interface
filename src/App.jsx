@@ -33,12 +33,12 @@ function App() {
       <nav className="nav">
         <div className="navbar">
             <div className="navbar_box navbar_left">
-                <p className="link">Paoline.K</p>
+                <p className="link text-main">Paoline.K</p>
                 <p>Collage</p>
             </div>
             <div className="navbar_box navbar_logo">
                 {/* <img className="logo link" src="img/Group 1.svg" alt=""> */}
-                <p>PK</p>
+                <p className=''>PK</p>
             </div>
         </div>
     </nav>
@@ -46,7 +46,7 @@ function App() {
         <div className="navbar">
             <div className="navbar_box navbar_box2 navbar_left">
                 <p>content of an artist </p>
-                <p>for everyone </p>
+                <p className='text-main'>for everyone </p>
             </div>
         </div>
     </nav>
