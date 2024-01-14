@@ -1,5 +1,7 @@
+import './Gallery.css';
+
 export function Gallery() {
     return (
-        <h1>Gallery</h1>
+        <h1>galery</h1>
     )
 }
