@@ -43,7 +43,7 @@ export function Collection() {
                 
                 title.innerHTML = element.dataset.title;
                 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
-                title.classList.add("active");
+                title.classList.remove("hide");
                 anime.timeline()
                 .add({
                     targets: '.ml13 .letter',
@@ -54,17 +54,44 @@ export function Collection() {
                     duration: 2500,
                     delay: (el, i) => + 30 * i
                 });
+                
+                
             });
+            
             element.addEventListener("mouseout", () => {
-                title.classList.remove("active");
+                title.classList.add("hide");
             });
         });
        
     }, [])
 
+    useEffect(() => {
+        var textWrapper = document.querySelector('.ml13');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+        
+        anime.timeline()
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [80, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                easing: "easeOutExpo",
+                duration: 2500,
+                delay: (el, i) => 30 * i
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -80],
+                opacity: [1, 0],
+                easing: "easeInExpo",
+                duration: 2500,
+                delay: (el, i) => 30 * i
+            });
+    }, [])
+
     return (
         <>
-        <h1 className='Collection-tittle ml13'>Collection</h1>
+        <h1 className='Collection-tittle ml13'>Collections</h1>
         <div id="collection">
             <div className="tile" data-title='Collection 1'>
                 <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHJhbmRvbSUyMG9iamVjdHN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=70" />

@@ -14,13 +14,13 @@
     transform: translate(-50%, -50%);
     user-select: none;
     pointer-events: none;
-    opacity: 0;
-    transition: 0.1s;
+    opacity: 1;
+    transition: 0.2s;
     z-index: 999;
     filter : drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.259));
 }
-.Collection-tittle.active {
-    opacity: 1;
+.Collection-tittle.hide {
+    opacity: 0;
 }
   .tile {
     border-radius: 1vmax;
