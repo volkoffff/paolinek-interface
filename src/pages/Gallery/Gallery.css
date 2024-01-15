@@ -1,0 +1,86 @@
+:root {
+  --backgroundColor: #292929;
+  --primaryColor: #0aa1ff;
+  --primaryTextColor: #e6e6e6;
+
+  --spacing: clamp(0.9rem, 0.75vw, 1.3rem);
+}
+
+.title-galerie {
+    font-family: 'margareth';
+    font-size: 8vmax;
+    font-weight: 700;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    pointer-events: none;
+    /* opacity: 0; */
+    transition: 0.1s;
+    z-index: 999;
+    filter : drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.259));
+}
+
+.scroll-section-outer {
+  overflow: hidden;
+}
+
+.scroll-section-inner {
+  height: 100vh;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: flex-end;
+  gap: 25px;
+  padding-bottom: 120px;
+  padding-left: 70px;
+}
+.image-gallerie {
+    transform-origin: center bottom;
+    max-width: 450px;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 0.5vmax;
+    transition: transform 800ms ease, border-radius 1200ms ease, opacity 800ms ease;
+}
+.image-gallerie:hover {
+    transform: scale(1.05);
+    border-radius: 1vmax;
+}
+.scroll-section-inner:has(.image-gallerie:hover) .image-gallerie:not(:hover) {
+    opacity: 0.4;
+    transform: scale(0.95);   
+}
+.image-gallerie:hover + .image-container-title {
+    height: 20px;
+}
+.image-container {
+    height: fit-content;
+}
+.image-container-title {
+    display: flex;
+    margin-top: 5px;
+    justify-content: space-between;
+    gap: 0px;
+    height: 0;
+    transition: height 1000ms ease;
+    overflow: hidden;
+}
+.image-container-title > h3 {
+    font-size: clamp(1rem, 0.9vw, 1.4rem);
+    opacity: 0.8;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+.image-container-title > p {
+    opacity: 0.2;
+    font-size: clamp(1rem, 0.9vw, 1.4rem);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
