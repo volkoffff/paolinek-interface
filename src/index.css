@@ -27,6 +27,59 @@ body {
   color: white;
   cursor: none;
 }
+.anim-translate-container {
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
+}
+.delay-1 {
+  animation-delay: 0.1s;
+}
+.delay-2 {
+  animation-delay: 0.2s;
+}
+.delay-3 {
+  animation-delay: 0.3s;
+}
+.delay-4 {
+  animation-delay: 0.4s;
+}
+.delay-5 {
+  animation-delay: 0.5s;
+}
+.delay-6 {
+  animation-delay: 0.6s;
+}
+.delay-7 {
+  animation-delay: 0.7s;
+}
+.delay-8 {
+  animation-delay: 0.8s !important;
+}
+.delay-9 {
+  animation-delay: 0.9s;
+}
+.delay-10 {
+  animation-delay: 1s !important;
+}
+.delay-11 {
+  animation-delay: 1.1s !important;
+}
+.delay-20 {
+  animation-delay: 2s !important;
+}
+.anim-translate {
+  transform: translateY(100%);
+  animation: anim-translate 2.2s cubic-bezier(0.77,0,0.18,1) forwards;
+}
+@keyframes anim-translate {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 a {
   color: white;
   text-decoration: none;

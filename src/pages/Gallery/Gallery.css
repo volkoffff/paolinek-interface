@@ -33,7 +33,7 @@
   flex-direction: row;
   position: relative;
   align-items: flex-end;
-  gap: 25px;
+  gap: 20px;
   padding-bottom: 120px;
   padding-left: 70px;
 }
@@ -43,7 +43,7 @@
     max-height: 350px;
     object-fit: cover;
     border-radius: 0.5vmax;
-    transition: transform 800ms ease, border-radius 1200ms ease, opacity 800ms ease;
+    transition: transform 1000ms cubic-bezier(.25,0,.03,.99), border-radius 1200ms ease, opacity 800ms ease;
 }
 .image-gallerie:hover {
     transform: scale(1.05);
@@ -55,6 +55,9 @@
 }
 .image-gallerie:hover + .image-container-title {
     height: 20px;
+}
+.image-gallerie:hover + .image-container-title > p {
+    transform: translateY(0px);
 }
 .image-container {
     height: fit-content;
@@ -82,5 +85,7 @@
     font-size: clamp(1rem, 0.9vw, 1.4rem);
     font-weight: 500;
     flex-shrink: 0;
+    transform: translateY(20px);
+    transition: transform 800ms ease;
 }
 
