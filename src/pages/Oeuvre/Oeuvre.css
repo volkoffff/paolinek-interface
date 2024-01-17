@@ -1,0 +1,120 @@
+.section-oeuvre {
+    height: 100vh;
+    width: min(calc(100% - 40px), 1300px);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    padding: 70px 0px;
+
+}
+.image-oeuvre-outer {
+    flex: 1;
+    display: grid;
+    place-content: center;
+}
+.image-oeuvre-bg-outer {
+    position: absolute;
+    top: 0%;
+    right: 50%;
+    height: 100vh;
+    width: 50%;
+    transform-origin: center bottom;
+    z-index: -1;
+
+    overflow: hidden;
+    animation: cache-noir 1800ms cubic-bezier(0.77,0,0.18,1)  forwards;
+}
+@keyframes cache-noir {
+    from {
+        height: 0%;
+    }
+    to {
+        height: 100%;
+    }
+}
+.image-oeuvre-bg {
+    filter: saturate(0%);
+    mix-blend-mode: hard-light;
+    opacity: 0.2;
+    min-width: 50%;
+    transition: filter 1600ms ease, opacity 1200ms ease;
+}
+
+.image-oeuvre {
+    max-height: clamp(300px,70vh,550px);
+    object-fit: cover;
+    transition: transform cubic-bezier(0.77,0,0.18,1) 1400ms, border-radius 2200ms ease;
+    animation: image-oeuvre-anim 1600ms cubic-bezier(0.77,0,0.18,1)  forwards;
+    opacity: 0;
+    animation-delay: 1.1s;
+}
+@keyframes image-oeuvre-anim {
+    0% {
+        border-radius: 0;
+        transform: scale(1.1);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        border-radius: 3vmin;
+    }
+}
+.image-oeuvre:hover {
+    transform: scale(1.03);
+    border-radius: 4vmin;
+}
+.image-oeuvre:hover + .image-oeuvre-bg {
+    filter: saturate(100%);
+}
+.info-outer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 17vh;
+}
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.info-header > div > h1 {
+    font-family: 'margareth';
+    font-size: 60px;
+    /* transform: translateX(-70px); */
+}
+.info-header > div > h2 {
+    opacity: 0.2;
+    font-size: 22px;
+    font-weight: 400;
+}
+.info-header-p-outer {
+    position: relative;
+    overflow: hidden;
+}
+.info-header-p-outer > p {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    column-count: 2;
+    column-gap: 40px;
+    text-align: justify;
+    position: relative;
+    opacity: 0;
+    letter-spacing: 1px;
+    animation: info-header-p-anim 2200ms cubic-bezier(0.77,0,0.18,1) forwards;
+    animation-delay: 0.7s;
+}
+@keyframes info-header-p-anim {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 0.75;
+    }
+}
