@@ -5,12 +5,28 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anime from 'animejs/lib/anime.es.js';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../helper/AxiosInstance';
+import { useState } from 'react';
 
 export function Gallery() {
     const navigate = useNavigate();
+    
+    const [oeuvres, setOeuvres] = useState([]);
 
     const sectionRef = useRef(null);
     const triggerRef = useRef(null);
+
+    useEffect(() => {
+        axiosInstance.get('/oeuvres')
+          .then(response => {
+            // Gérer la réponse ici
+            setOeuvres(response.data["hydra:member"]);
+          })
+          .catch(error => {
+            // Gérer les erreurs ici
+            console.error('Error fetching collections:', error);
+          });
+    }, []);
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -64,54 +80,33 @@ export function Gallery() {
         
     }, []);
 
+
     return (
         <>
             <h1 className='title-galerie ml13'>Gallerie</h1>
             <section className="scroll-section-outer">
                 <div ref={triggerRef}>
                     <div ref={sectionRef} className="scroll-section-inner">
+                        { oeuvres.map((oeuvre, index) => (
+                            <div className="image-container" key={index}>
+                                <img   onClick={() => {navigate(`/gallery/${oeuvre.id}`)}} className="image-gallerie" src={oeuvre.image} alt=""></img>
+                                <div className='image-container-title'>
+                                    <h3>{oeuvre.name}</h3>
+                                    <p>{oeuvre.serie.name}</p>
+                                </div>
+                            </div>
+                        ))
+                        }
+                        {/* 
+                        example of a gallery item
+
                         <div className="image-container" >
                             <img onClick={() => {navigate('/gallery/4'); }} className="image-gallerie" src="https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/04/fdcd5a_e1dd92645cdf4e2a91bbd6c1a6c70202mv2.jpg?resize=1000%2C1250&quality=89&ssl=1" alt=""></img>
                             <div className='image-container-title'>
                                 <h3>Déjà vu</h3>
                                 <p>Souvenirs</p>
                             </div>
-                        </div>
-                        <div className="image-container">
-                            <img className="image-gallerie" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_640.jpg" alt="" />
-                            <div className='image-container-title'>
-                                <h3>Déjà vu</h3>
-                                <p>Souvenirs</p>
-                            </div>
-                        </div>
-                        <div className="image-container">
-                            <img className="image-gallerie" src="https://usualcom.net/wp-content/uploads/2017/09/12364849-Planet-Earth-and-human-eye-Stock-Photo.jpg" alt="" />
-                            <div className='image-container-title'>
-                                <h3>Déjà vu</h3>
-                                <p>Souvenirs</p>
-                            </div>
-                        </div>
-                        <div className="image-container">
-                            <img className="image-gallerie" src="https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive.jpg" alt=""></img>
-                            <div className='image-container-title'>
-                                <h3>Déjà vu</h3>
-                                <p>Souvenirs</p>
-                            </div>
-                        </div>
-                        <div className="image-container">
-                            <img className="image-gallerie" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_640.jpg" alt="" />
-                            <div className='image-container-title'>
-                                <h3>Déjà vu</h3>
-                                <p>Souvenirs</p>
-                            </div>
-                        </div>
-                        <div className="image-container">
-                            <img className="image-gallerie" src="https://usualcom.net/wp-content/uploads/2017/09/12364849-Planet-Earth-and-human-eye-Stock-Photo.jpg" alt="" />
-                            <div className='image-container-title'>
-                                <h3>Déjà vu</h3>
-                                <p>Souvenirs</p>
-                            </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>
