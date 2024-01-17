@@ -92,21 +92,12 @@ export function Gallery() {
                                 <img   onClick={() => {navigate(`/gallery/${oeuvre.id}`)}} className="image-gallerie" src={oeuvre.image} alt=""></img>
                                 <div className='image-container-title'>
                                     <h3>{oeuvre.name}</h3>
-                                    <p>{oeuvre.serie.name}</p>
+                                    { oeuvre.serie &&
+                                        <p>{oeuvre.serie.name}</p>
+                                    }
                                 </div>
                             </div>
-                        ))
-                        }
-                        {/* 
-                        example of a gallery item
-
-                        <div className="image-container" >
-                            <img onClick={() => {navigate('/gallery/4'); }} className="image-gallerie" src="https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/04/fdcd5a_e1dd92645cdf4e2a91bbd6c1a6c70202mv2.jpg?resize=1000%2C1250&quality=89&ssl=1" alt=""></img>
-                            <div className='image-container-title'>
-                                <h3>Déjà vu</h3>
-                                <p>Souvenirs</p>
-                            </div>
-                        </div> */}
+                        ))}
                     </div>
                 </div>
             </section>
