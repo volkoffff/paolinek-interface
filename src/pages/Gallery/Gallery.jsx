@@ -13,6 +13,14 @@ export function Gallery() {
     
     const [oeuvres, setOeuvres] = useState([]);
 
+    const [isLoaded, setIsLoaded] = useState(false);
+    
+    useEffect(() => {
+        if (oeuvres.length > 0) {
+            setIsLoaded(true);
+        }
+    }, [oeuvres]);
+
     const sectionRef = useRef(null);
     const triggerRef = useRef(null);
 
@@ -28,8 +36,8 @@ export function Gallery() {
           });
     }, []);
 
-    gsap.registerPlugin(ScrollTrigger);
 
+    gsap.registerPlugin(ScrollTrigger);
     useEffect(() => {
         const pin = gsap.fromTo(
             sectionRef.current,
@@ -80,6 +88,24 @@ export function Gallery() {
         
     }, []);
 
+    useEffect(() => {
+
+        // Sélectionnez toutes les divs avec la classe .ml14
+        const elements = document.querySelectorAll('.ml14');
+
+        // Définissez l'animation avec Anime.js
+        anime({
+            targets: elements,
+            opacity: [0, 1],
+            scale: [0.9, 1],
+            duration: 1100, // Durée de l'animation en millisecondes
+            easing: 'easeInOutQuad', // Fonction d'accélération
+            delay: anime.stagger(100), // Délai entre les animations de chaque élément
+        });
+        
+    }, [oeuvres]);
+
+
 
     return (
         <>
@@ -87,8 +113,9 @@ export function Gallery() {
             <section className="scroll-section-outer">
                 <div ref={triggerRef}>
                     <div ref={sectionRef} className="scroll-section-inner">
-                        { oeuvres.map((oeuvre, index) => (
-                            <div className="image-container" key={index}>
+                        { oeuvres.length > 0 && 
+                        oeuvres.map((oeuvre, index) => (
+                            <div className="image-container ml14" key={index}>
                                 <img   onClick={() => {navigate(`/gallery/${oeuvre.id}`)}} className="image-gallerie" src={oeuvre.image} alt=""></img>
                                 <div className='image-container-title'>
                                     <h3>{oeuvre.name}</h3>
