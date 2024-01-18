@@ -4,29 +4,36 @@ import { useNavigate } from "react-router-dom";
 export function Navbar() {
     const navigate = useNavigate();
 
-    window.onscroll = function() {
-        if (window.pageYOffset > 40) {
-          document.querySelector(".nav-top").classList.add("active");
-          document.querySelector(".nav-bottom").classList.add("active");
-          
-        } else {
-            document.querySelector(".nav-top").classList.remove("active");
-            document.querySelector(".nav-bottom").classList.remove("active");
-        }
-    };
+
+
     
     useEffect(() => {
 
         const menuInfo = document.querySelector(".menu-info");
+        const navtop = document.querySelector(".nav-top");
+        const navbottom = document.querySelector(".nav-bottom");
 
+        // function on scroll add and remove navbar active class
         window.onscroll = function() {
-            menuInfo.classList.add("active");    
+
+            menuInfo.classList.add("active");  
+            if (window.pageYOffset > 40) {
+              navtop.classList.add("active");
+              navbottom.classList.add("active");
+              
+            } else {
+                navtop.classList.remove("active");
+                navbottom.classList.remove("active");
+            }
+
         };
+
         window.onscrollend = function() {
             setTimeout(() => {
                 menuInfo.classList.remove("active");    
             }, 2000);
         };
+        
     }, []);
 
     return (

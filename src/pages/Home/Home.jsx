@@ -4,12 +4,12 @@ import anime from 'animejs/lib/anime.es.js';
 import { ButtonMagnetic } from "../../components/Home/ButtonMagnetic/ButtonMagnetic";
 
 export function Home() {
+    document.body.style.overflow = "scroll";
 
     useEffect(() => {
      // effect text intro annimation pop up
      var textWrapper = document.querySelector('.ml13');
      textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
-     console.log('start');
      anime.timeline()
          .add({
              targets: '.ml13 .letter',
