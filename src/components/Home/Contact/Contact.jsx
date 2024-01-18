@@ -49,8 +49,8 @@ export function Contact() {
         </div>
 
         <div className="line">
-            <p className="word">Collage</p>
-            {/* <p className="word">&</p> */}
+            <p className="word">Contact</p>
+            <p className="word">me</p>
         </div>
 
         
