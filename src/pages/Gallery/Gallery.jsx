@@ -1,133 +1,111 @@
-import './Gallery.css';
-import { useEffect } from 'react';
-import { useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import anime from 'animejs/lib/anime.es.js';
-import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../helper/AxiosInstance';
-import { useState } from 'react';
+import anime from "animejs/lib/anime.es.js";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { GalleryText } from "../../components/Home/Gallery/GalleryText";
+import { Loading } from "../../components/Loading";
+import axiosInstance from "../../helper/AxiosInstance";
+import "./Gallery.css";
 
 export function Gallery() {
-    const navigate = useNavigate();
-    
-    const [oeuvres, setOeuvres] = useState([]);
+  const navigate = useNavigate();
+  const [oeuvres, setOeuvres] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    
-    useEffect(() => {
-        if (oeuvres.length > 0) {
-            setIsLoaded(true);
-        }
-    }, [oeuvres]);
+  useEffect(() => {
+    axiosInstance
+      .get("/oeuvres")
+      .then((response) => {
+        // Gérer la réponse ici
+        setOeuvres(response.data["hydra:member"]);
+        setIsLoaded(true);
+      })
+      .catch((error) => {
+        // Gérer les erreurs ici
+        console.error("Error fetching collections:", error);
+      });
+  }, []);
 
-    const sectionRef = useRef(null);
-    const triggerRef = useRef(null);
+  const sectionRef = useRef(null);
+  const triggerRef = useRef(null);
+  // Register ScrollTrigger animation on component mount
+  gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    const pin = gsap.fromTo(
+      sectionRef.current,
+      {
+        translateX: 0,
+      },
+      {
+        translateX: "-300vw",
+        ease: "none",
+        duration: 1,
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: "2000 top",
+          scrub: 0.6,
+          pin: true,
+        },
+      }
+    );
+    return () => {
+      {
+        /* A return function for killing the animation on component unmount */
+      }
+      pin.kill();
+    };
+  }, [isLoaded]);
 
-    useEffect(() => {
-        axiosInstance.get('/oeuvres')
-          .then(response => {
-            // Gérer la réponse ici
-            setOeuvres(response.data["hydra:member"]);
-          })
-          .catch(error => {
-            // Gérer les erreurs ici
-            console.error('Error fetching collections:', error);
-          });
-    }, []);
+  useEffect(() => {
+    if (isLoaded === true) {
+      // Sélectionnez toutes les divs avec la classe .ml14
+      const elements = document.querySelectorAll(".ml14");
 
+      // Définissez l'animation avec Anime.js
+      anime({
+        targets: elements,
+        opacity: [0, 1],
+        scale: [0.9, 1],
+        duration: 1100, // Durée de l'animation en millisecondes
+        easing: "easeInOutQuad", // Fonction d'accélération
+        delay: anime.stagger(100), // Délai entre les animations de chaque élément
+      });
+    }
+  }, [isLoaded]);
 
-    gsap.registerPlugin(ScrollTrigger);
-    useEffect(() => {
-        const pin = gsap.fromTo(
-            sectionRef.current,
-            {
-                translateX: 0,
-            },
-            {
-                translateX: "-300vw",
-                ease: "none",
-                duration: 1,
-                scrollTrigger: {
-                    trigger: triggerRef.current,
-                    start: "top top",
-                    end: "2000 top",
-                    scrub: 0.6,
-                    pin: true,
-                },
-            }
-        );
-        return () => {
-            {/* A return function for killing the animation on component unmount */ }
-            pin.kill();
-        };
-    }, []);
-
-    useEffect(() => {
-        var textWrapper = document.querySelector('.ml13');
-        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
-        
-        anime.timeline()
-            .add({
-                targets: '.ml13 .letter',
-                translateY: [80, 0],
-                translateZ: 0,
-                opacity: [0, 1],
-                easing: "easeOutExpo",
-                duration: 2500,
-                delay: (el, i) => 30 * i
-            })
-            .add({
-                targets: '.ml13 .letter',
-                translateY: [0, -80],
-                opacity: [1, 0],
-                easing: "easeInExpo",
-                duration: 2500,
-                delay: (el, i) => 30 * i
-            });
-        
-    }, []);
-
-    useEffect(() => {
-
-        // Sélectionnez toutes les divs avec la classe .ml14
-        const elements = document.querySelectorAll('.ml14');
-
-        // Définissez l'animation avec Anime.js
-        anime({
-            targets: elements,
-            opacity: [0, 1],
-            scale: [0.9, 1],
-            duration: 1100, // Durée de l'animation en millisecondes
-            easing: 'easeInOutQuad', // Fonction d'accélération
-            delay: anime.stagger(100), // Délai entre les animations de chaque élément
-        });
-        
-    }, [oeuvres]);
-
-
-
-    return (
+  return (
+    <>
+      {isLoaded === false ? (
+        <Loading />
+      ) : (
         <>
-            <h1 className='title-galerie ml13'>Gallerie</h1>
-            <section className="scroll-section-outer">
-                <div ref={triggerRef}>
-                    <div ref={sectionRef} className="scroll-section-inner">
-                        { oeuvres.length > 0 && 
-                        oeuvres.map((oeuvre, index) => (
-                            <div className="image-container ml14" key={index}>
-                                <img   onClick={() => {navigate(`/gallery/${oeuvre.id}`)}} className="image-gallerie" src={oeuvre.image} alt=""></img>
-                                <div className='image-container-title'>
-                                    <h3>{oeuvre.name}</h3>
-                                    { oeuvre.serie &&
-                                        <p>{oeuvre.serie.name}</p>
-                                    }
-                                </div>
-                            </div>
-                        ))}
+          <section className="scroll-section-outer">
+            <div ref={triggerRef}>
+              <GalleryText />
+              <div ref={sectionRef} className="scroll-section-inner">
+                {oeuvres.map((oeuvre, index) => (
+                  <div className="image-container ml14" key={index}>
+                    <img
+                      onClick={() => {
+                        navigate(`/gallery/${oeuvre.id}`);
+                      }}
+                      className="image-gallerie"
+                      src={oeuvre.image}
+                      alt=""
+                    ></img>
+                    <div className="image-container-title">
+                      <h3>{oeuvre.name}</h3>
+                      {oeuvre.serie && <p>{oeuvre.serie.name}</p>}
                     </div>
-                </div>
-            </section>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
         </>
-    )
+      )}
+    </>
+  );
 }
